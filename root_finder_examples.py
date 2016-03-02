@@ -13,6 +13,7 @@ Description: Tests different methods for finding roots of a nonlinear function.
 """
 
 import numpy as np
+import matplotlib.pyplot as plt
 
 def Newton(f, fprime, x0, eps = 1e-7, N = 100):
     """
@@ -28,7 +29,7 @@ def Newton(f, fprime, x0, eps = 1e-7, N = 100):
         n += 1
     return x[:n]
 
-def bisect(f, a, b, eps = 1e-7):
+def bisect(f, a, b, eps = 1e-3):
     """
     Uses the bisection method to estimate the root(s) of a function
     """
@@ -64,6 +65,57 @@ def secant(f, x0, x1, eps = 1e-7, N = 100):
         x[n] = x[n - 1] - (f(x[n - 1]) * (x[n - 1] - x[n - 2])) / (f(float(x[n-1])) - f(float(x[n - 2])))
         n += 1
     return x[:n]
+
+def graph(f, n, xmin, xmax, resolution = 100):
+    xpactual = np.linspace(xmin, xmax, resolution)
+    ypactual = f(xpactual)
+    plt.plot(xpactual, ypactual, 'r-')
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.axis([xmin, xmax, -1.1, 1.1])
+    plt.title('f(x)')
+
+def f1(x):
+    return np.sin(x)
+
+def f1prime(x):
+    return np.cos(x)
+
+def f2(x):
+    return x - np.sin(x)
+
+def f2prime(x):
+    return 1- np.cos(x)
+
+def f3(x):
+    return x**5 - np.sin(x)
+
+def f3prime(x):
+    return 5 * x**4 - np.cos(x)
+
+def f4(x):
+    return x**4 * np.sin(x)
+
+def f4prime(x):
+    return 4 * x**3 * np.sin(x) + x**4 * np.cos(x)
+
+def f5(x):
+    return x**4 - 16
+
+def f5prime(x):
+    return 4 * x**3
+
+def f6(x):
+    return x**10 - 1
+
+def f6prime(x):
+    return 10 * x**9
+
+def f7(x):
+    return np.tanh(x) - x**10
+
+def f7prime(x):
+    return 1.0 / (np.cosh(x))**2 - 10 * x**9
 
 def test_Newton():
     def f(x):
