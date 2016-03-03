@@ -13,7 +13,7 @@ Description: Computes the arc length of a curve
 """
 
 import numpy as np
-from sympy import *
+import sympy as sp
 
 def integral(f, a, x, N = 20):
     index_set = range(N + 1)
@@ -28,16 +28,19 @@ def integral(f, a, x, N = 20):
         s[n] = s[n - 1] + 0.5 * (x[n] - x[n - 1]) * (f_[n - 1] + f_[n])
     return x, s
 
-def derivative(f):
-    x = Symbol('x')
-    f = f(x)
-    return f.diff(x)
+def derivative(f='sin(x)'):
+    x = sp.Symbol('x')
+    df = sp.lambdify([x], sp.diff(f))
+    return df
 
-def f(x):
-    f = x**2
+def helper(g):
+    x = sp.Symbol('x')
+    dg = sp.lambdify([x], sp)
 
 def arclength(f, a, b, n):
-    integral(np.sqrt(1 + ((derivative(f, a)) ** 2)), a, x)
+    df = derivative(f)
+    g = lambda x: np.sqrt(1 + (df(x) ** 2))
+    return integral(g, a, b, n)
 
 def test_derivative():
     def f(x):
