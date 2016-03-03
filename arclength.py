@@ -53,3 +53,6 @@ def test_integral():
         return 2 * x
 
     assert(abs(integral(f, 0, 4)[1][-1] - 16.0) < 1e-6)
+
+def test_arclength():
+    assert(abs(arclength('x', 0, 2, 100)[1][-1] - 2.8284271247461) < 1e-7)
