@@ -13,7 +13,6 @@ Description: Tests different methods for finding roots of a nonlinear function.
 """
 
 import numpy as np
-import matplotlib.pyplot as plt
 
 def Newton(f, fprime, x0, eps = 1e-7, N = 100):
     """
