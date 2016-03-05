@@ -33,20 +33,13 @@ def derivative(f='sin(x)'):
     df = sp.lambdify([x], sp.diff(f))
     return df
 
-def helper(g):
-    x = sp.Symbol('x')
-    dg = sp.lambdify([x], sp)
-
 def arclength(f, a, b, n):
     df = derivative(f)
     g = lambda x: np.sqrt(1 + (df(x) ** 2))
     return integral(g, a, b, n)
 
 def test_derivative():
-    def f(x):
-        return x**2
-    print derivative(f, 2)
-    assert(abs(derivative(f, 2) - 4.0) < 1e-6)
+    assert(abs(derivative('x**2')(2) - 4.0) < 1e-6), 'Failure'
 
 def test_integral():
     def f(x):
